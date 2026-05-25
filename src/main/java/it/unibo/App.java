@@ -1,8 +1,9 @@
-package it.unibo.part01;
+package it.unibo;
 
 import io.vertx.core.Vertx;
+import it.unibo.part01.FSStatLibVertx;
 
-public class App1 {
+public class App {
     public static void main(String[] args) {
         Vertx vertx = Vertx.vertx();
 
