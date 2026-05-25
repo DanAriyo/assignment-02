@@ -2,6 +2,7 @@ package it.unibo;
 
 import io.vertx.core.Vertx;
 import it.unibo.part01.FSStatLibVertx;
+import it.unibo.part02.FSStatLibRx;
 
 public class App {
     public static void main(String[] args) {
@@ -16,7 +17,7 @@ public class App {
         System.out.println("==================================================");
         System.out.printf("Impostazioni: MaxFS = %d KB | Numero Bande (NB) = %d%n", maxFS / 1024, nb);
 
-        FSStatLibVertx.getFSReport(vertx, "src/main/java/it/unibo/lib", maxFS, nb)
+        /*FSStatLibVertx.getFSReport(vertx, "src/main/java/it/unibo/lib", maxFS, nb)
                 .onSuccess(report -> {
                     System.out.println("==================================================");
                     System.out.println("                 REPORT FINALE                    ");
@@ -49,6 +50,8 @@ public class App {
                     System.err.println("Dettaglio: " + err.getMessage());
                     System.out.println("==================================================");
                     vertx.close();
-                });
+                });*/
+
+        FSStatLibRx.getFSReport();
     }
 }
