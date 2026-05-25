@@ -52,6 +52,6 @@ public class App {
                     vertx.close();
                 });*/
 
-        FSStatLibRx.getFSReport();
+        FSStatLibRx.getFSReport("src/main/java/it/unibo/lib", maxFS, nb);
     }
 }
