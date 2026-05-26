@@ -3,6 +3,7 @@ package it.unibo;
 import io.vertx.core.Vertx;
 import it.unibo.part01.FSStatLibVertx;
 import it.unibo.part02.FSStatLibRx;
+import it.unibo.part03.FSStatLibVT;
 
 public class App {
 
@@ -11,7 +12,7 @@ public class App {
 
     public static void main(String[] args) {
         // Scegli qui quale motore testare cambiando il valore (VERTX o RX)
-        EngineMode mode = EngineMode.VERTX;
+        EngineMode mode = EngineMode.VT;
 
         Vertx vertx = Vertx.vertx();
 
@@ -51,6 +52,14 @@ public class App {
                 } finally {
                     // Chiudiamo comunque l'istanza Vertx creata a inizio main
                     vertx.close();
+                }
+            }
+            case VT -> {
+                try {
+                    FSReport report = FSStatLibVT.getFSReport(targetPath, maxFS, nb);
+                    printReport(report, maxFS, nb);
+                } catch (Exception err) {
+                    printError(err);
                 }
             }
         }
