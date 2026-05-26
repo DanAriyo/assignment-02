@@ -7,18 +7,15 @@ import it.unibo.part03.FSStatLibVT;
 
 public class App {
 
-    // Definiamo le modalità di test disponibili
     private enum EngineMode { VERTX, RX, VT}
 
     public static void main(String[] args) {
-        // Scegli qui quale motore testare cambiando il valore (VERTX o RX)
         EngineMode mode = EngineMode.VT;
 
 
 
-        // Configurazione dei parametri del report
-        long maxFS = 100 * 1024; // 100 KiloByte
-        int nb = 4;              // Dividiamo in 4 bande (+ 1 per i file eccedenti)
+        long maxFS = 100 * 1024;
+        int nb = 4;
 
         System.out.println("==================================================");
         System.out.println("  AVVIO ANALISI DEL FILE SYSTEM  ");
@@ -29,7 +26,6 @@ public class App {
 
         String targetPath = "src/main/java/it/unibo/lib";
 
-        // Lo switch pulito per gestire le due varianti di assegnamento
         switch (mode) {
             case VERTX -> {
                 Vertx vertx = Vertx.vertx();
@@ -45,7 +41,6 @@ public class App {
             }
             case RX -> {
                 try {
-                    // Chiamata sincrona/bloccante all'implementazione RxJava
                     FSReport report = FSStatLibRx.getFSReport(targetPath, maxFS, nb);
                     printReport(report, maxFS, nb);
                 } catch (Exception err) {
@@ -77,7 +72,6 @@ public class App {
         long[] bands = report.getSizeBands();
         double bandWidth = (double) maxFS / nb;
 
-        // Stampiamo la distribuzione in KB per una migliore leggibilità
         for (int i = 0; i < nb; i++) {
             double minKb = (i * bandWidth) / 1024.0;
             double maxKb = ((i + 1) * bandWidth) / 1024.0;
@@ -86,7 +80,6 @@ public class App {
                     i, minKb, maxKb, bands[i]);
         }
 
-        // Ultima fascia per i file che superano il MaxFS
         System.out.printf("Fascia %d [        > %6.2f KB] -> %d file%n",
                 nb, maxFS / 1024.0, bands[nb]);
         System.out.println("==================================================");

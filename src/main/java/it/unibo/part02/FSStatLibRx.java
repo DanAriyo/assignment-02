@@ -19,7 +19,6 @@ public class FSStatLibRx {
         return bandIndex;
     }
 
-    // Il metodo ora restituisce direttamente l'oggetto FSReport
     public static FSReport getFSReport(String rootPath, long maxFS, int nb) {
         if (nb <= 0 || maxFS <= 0) {
             throw new IllegalArgumentException("NB e MaxFS devono essere maggiori di zero.");
@@ -33,7 +32,6 @@ public class FSStatLibRx {
 
         FSReport reportIniziale = new FSReport(0, new long[nb + 1]);
 
-        // Ritorniamo il risultato usando .blockingGet() alla fine della catena
         return fileObservable
                 .subscribeOn(Schedulers.io())
                 .filter(Files::isRegularFile)
@@ -51,8 +49,6 @@ public class FSStatLibRx {
                         throw new RuntimeException("Impossibile leggere: " + path, e);
                     }
                 })
-                // .blockingGet() ferma l'esecuzione qui e aspetta il report finale.
-                // Se si verifica un errore nel flusso, lo lancia come RuntimeException.
                 .blockingGet();
     }
 }
