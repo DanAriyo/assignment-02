@@ -14,7 +14,7 @@ public class App {
         // Scegli qui quale motore testare cambiando il valore (VERTX o RX)
         EngineMode mode = EngineMode.VT;
 
-        Vertx vertx = Vertx.vertx();
+
 
         // Configurazione dei parametri del report
         long maxFS = 100 * 1024; // 100 KiloByte
@@ -32,6 +32,7 @@ public class App {
         // Lo switch pulito per gestire le due varianti di assegnamento
         switch (mode) {
             case VERTX -> {
+                Vertx vertx = Vertx.vertx();
                 FSStatLibVertx.getFSReport(vertx, targetPath, maxFS, nb)
                         .onSuccess(report -> {
                             printReport(report, maxFS, nb);
@@ -49,9 +50,6 @@ public class App {
                     printReport(report, maxFS, nb);
                 } catch (Exception err) {
                     printError(err);
-                } finally {
-                    // Chiudiamo comunque l'istanza Vertx creata a inizio main
-                    vertx.close();
                 }
             }
             case VT -> {
