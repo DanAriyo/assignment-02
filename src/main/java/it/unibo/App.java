@@ -7,7 +7,7 @@ import it.unibo.part02.FSStatLibRx;
 public class App {
 
     // Definiamo le modalità di test disponibili
-    private enum EngineMode { VERTX, RX }
+    private enum EngineMode { VERTX, RX, VT}
 
     public static void main(String[] args) {
         // Scegli qui quale motore testare cambiando il valore (VERTX o RX)
